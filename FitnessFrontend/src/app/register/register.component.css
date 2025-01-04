@@ -1,0 +1,202 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  width: 100% !important;
+  height: 100%;
+  overflow-y: auto !important;
+}
+
+
+.main{
+    margin-top: 50px;
+}
+
+h1.title { 
+   font-size: 50px;
+   font-family: 'Passion One', cursive; 
+   font-weight: 400; 
+}
+
+hr{
+   width: 10%;
+   color: #fff;
+}
+
+.form-group{
+   margin-bottom: 12px;
+}
+
+label{
+   margin-bottom: 15px;
+}
+
+input,
+input::-webkit-input-placeholder {
+   font-size: 11px;
+   padding-top: 3px;
+}
+
+.main-login{
+    background-color: #fff;
+   /* shadows and rounded borders */
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
+   border-radius: 2px;
+   -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+   -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+
+}
+
+.main-center{
+    margin-top: 20px;
+    margin: 0 auto;
+    max-width: 400px;
+   padding: 20px 40px 20px;
+
+}
+
+.login-register{
+   font-size: 11px;
+   text-align: center;
+}
+
+.addon-size{
+    width: 40px;
+    color: #0d6efd;
+}
+
+.control-label{
+    font-size: 12px;
+}
+
+.avatar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ }
+ 
+ .avatar {
+   margin: 0px auto;
+   width: 100px;
+   height: 100px;
+   border-radius: 50%;
+   background-color: lightblue;
+   background-size: cover;
+   cursor: pointer;
+ }
+
+ .avatar img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+ }
+ 
+ .avatar:hover {
+   opacity: 0.7;
+ }
+ 
+ .avatar-selected {
+   background-size: cover;
+ }
+
+ .error-container{
+   position: relative;
+ }
+
+ .error {
+   position: absolute;
+    top: 120%; /* Position below the input */
+    left: 0;
+    width: 100%;
+   color:red;
+   font-size: 10px;
+ }
+
+ .avatar {
+  position: relative;
+  display: flex; 
+  flex-direction: row;
+  justify-content: center;
+  border-radius: 50%;
+  max-width: 128px;
+  min-width: 128px;
+  max-height: 128px;
+  min-height: 128px;
+  gap: 4px;
+}
+
+.avatar-input {
+ width: 40%;
+ margin-top: 5px;  
+}
+
+
+ .preview {
+   position: relative;
+  min-width: inherit;
+   min-height: inherit;
+   max-height: 128px;
+   max-width: 128px;
+   border-radius: 5px;
+   object-fit: contain;
+   clip-path: inset(0);
+   border-radius: 50%;
+ }
+
+ .preview-image {
+   max-width: 100%;
+   max-height: 100%;
+   width: 100%;
+   height: 100%;
+   object-fit: contain;
+   clip-path: inset(0);
+   border-radius: 50%;
+ }
+
+.custom-button {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: #007bff; /* Bootstrap primary color */
+   color: #fff; /* White text */
+   padding: 10px 20px; /* Adjust padding as needed */
+   border: none;
+   cursor: pointer;
+   border-radius: 3px;
+   margin-top: 8px;
+   height: 25px;
+ }
+ .custom-button:hover {
+   background-color: #0056b3; /* Darker shade of primary color on hover */
+ }
+
+ .login-button {
+  margin-top: 10px;
+ }
+ 
+ .delete-button {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color:#0056b3;
+  color: #fff;
+  border: none;
+  width: 75%;
+  max-width: 75%;
+  height: 20%;
+  max-height: 20%;
+  border-radius: 5px;
+}
+
+ .preview:hover .delete-button {
+  display: block;
+}
+
+.preview:hover > .preview-image {
+  filter: blur(10px);
+}

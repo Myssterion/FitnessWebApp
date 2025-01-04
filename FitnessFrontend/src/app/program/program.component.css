@@ -1,0 +1,188 @@
+.frame{
+    background:#e9e9e9;
+    margin-top: 0px;
+    height: calc(100% - 55px);
+    overflow-y: auto !important;
+    padding-bottom: 5px;
+}
+
+.container {
+    width: 70%;
+    min-width: 70%;
+    background: #fff;
+    padding: 30px 50px 0px;
+    margin-top: 0px;
+}
+
+.product-content {
+    margin-bottom: 5px;
+    margin-top: 12px;
+    background: #fff;
+}
+
+.product-content .carousel-control.left {
+    margin-left: 0
+}
+
+.product-content .product-image {
+    background-color: #fff;
+    position: relative;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-content .product-deatil {
+    border-bottom: 1px solid #dfe5e9;
+    background: #fff
+}
+
+.product-block .product-deatil p.price-container span,
+.product-content .product-deatil p.price-container span,
+.product-entry .product-deatil p.price-container span,
+.shipping table tbody tr td p.price-container span,
+.shopping-items table tbody tr td p.price-container span {
+    color: #21c2f8;
+    font-family: Lato, sans-serif;
+    font-size: 24px;
+    line-height: 20px
+}
+
+.product-deatil hr+.description-tabs {
+    padding: 0 0 5px!important
+}
+
+.product-deatil .carousel-control.left,
+.product-deatil .carousel-control.right {
+    background: none!important;
+    min-height: 30px;
+}
+
+.product-deatil .glyphicon {
+    color: deepskyblue;
+}
+
+.product-deatil .product-image {
+    border-right: none!important
+}
+
+.product-deatil .price-container {
+    font-size: 24px;
+    margin: 0;
+    font-weight: 300
+}
+
+.btn-enlarged {
+    font-size: 15px; /* Adjust the font size as needed */
+    padding: 10px; /* Adjust padding as needed */
+}
+
+.image-size {
+    width: 900px;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.comment {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.comment-header {
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comment-body {
+    font-size: 14px;
+    margin: 0px;
+}
+
+.username {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.button-body {
+    margin-bottom: 8px;
+    background: #21c2f8;
+    color:#fff;
+    padding: 4px 10px;
+}
+.category-container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.category-container h4,
+.category-container a {
+    flex: 1; /* or flex-grow: 1; */
+    display: inline !important;
+}
+
+.textarea {
+    height: 60px;
+    resize: none !important;
+ }
+
+ .form-group {
+    margin-top: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+ }
+
+ .modal-content.custom-modal-height {
+    height: 30vh; /* Set the desired height */
+    max-height: 30vh; /* Ensure it doesn't exceed the viewport height */
+    overflow-y: hidden; /* Allow scrolling if content overflows */
+  }
+
+  .message-size {
+    width: 100%;
+    height: 100%;
+  }
+
+  .btn-margin {
+    margin-bottom: 15px;
+  }
+
+  .join-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 10px;
+  }
+
+  .payment-method {
+    font-size: 16px;
+    text-align: center;
+    max-width: 25%;
+    min-width: 25%;
+    max-height: 30px;
+    min-height: 30px;
+  }
+
+  .center {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .iframe-container {
+    display: flex;
+    justify-content: center; /* Center the iframe horizontally */
+    align-items: center;     /* Center the iframe vertically if needed */
+    width: 100%;             /* Full width of the container */
+  }
+  
+  iframe {
+    flex: 1 1 100%;          /* Flex-grow, flex-shrink, flex-basis: allow iframe to grow/shrink based on width */
+    max-width: 100%;         /* Ensure it doesn't overflow */
+    height: auto;            /* Automatically adjust height based on aspect ratio */
+    aspect-ratio: 16/9;      /* Maintain the 16:9 aspect ratio of the video */
+  }
+  

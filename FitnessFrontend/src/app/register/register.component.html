@@ -1,0 +1,152 @@
+    <div class="body">
+        <div class="row main">
+            <div class="main-login main-center">
+                <form class="form-horizontal" #registerForm="ngForm" (ngSubmit)="onRegisterUser(registerForm)" autocomplete="off">
+                    
+                    <div class="form-group">
+                        <label for="name" class="cols-sm-2 control-label">Your Name</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon addon-size"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control" name="name" id="name" [(ngModel)]="user.name" placeholder="Enter your Name"  autocomplete="off" minlength="2" maxlength="30" required #name="ngModel"/>
+                            </div>
+                            <div class="error-container">
+                            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error">
+                                <div *ngIf="name.errors?.['required']">Name is required.</div>
+                                <div *ngIf="name.errors?.['minlength']">Name must be at least 2 characters long.</div>
+                                <div *ngIf="name.errors?.['maxlength']">Name cannot be more than 30 characters long.</div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name" class="cols-sm-2 control-label">Your Surname</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon addon-size"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control" name="surname" id="surname" [(ngModel)]="user.surname"  placeholder="Enter your Surname" autocomplete="off" minlength="2" maxlength="30" required #surname="ngModel"/>
+                            </div>
+                            <div class="error-container">
+                                <div *ngIf="surname.invalid && (surname.dirty || surname.touched)" class="error">
+                                    <div *ngIf="surname.errors?.['required']">Surname is required.</div>
+                                    <div *ngIf="surname.errors?.['minlength']">Surname must be at least 2 characters long.</div>
+                                    <div *ngIf="surname.errors?.['maxlength']">Surname cannot be more than 30 characters long.</div>
+                                  </div>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="cols-sm-2 control-label">Your Email</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon addon-size"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control" name="email" id="email" [(ngModel)]="user.email" placeholder="Enter your Email" autocomplete="off" minlength="2" maxlength="30" required #email="ngModel"/>
+                            </div>
+                            <div class="error-container">
+                                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error">
+                                    <div *ngIf="email.errors?.['required']">Email is required.</div>
+                                    <div *ngIf="email.errors?.['minlength']">Email must be at least 2 characters long.</div>
+                                    <div *ngIf="email.errors?.['maxlength']">Email cannot be more than 30 characters long.</div>
+                                  </div>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city" class="cols-sm-2 control-label">City</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon addon-size"><i class="fa fa-building fa" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control" name="city" id="city" [(ngModel)]="user.city" placeholder="Enter your City" autocomplete="off" minlength="2" maxlength="30" required #city="ngModel"/>
+                            </div>
+                            <div class="error-container">
+                                <div *ngIf="city.invalid && (city.dirty || city.touched)" class="error">
+                                    <div *ngIf="city.errors?.['required']">City is required.</div>
+                                    <div *ngIf="city.errors?.['minlength']">City must be at least 2 characters long.</div>
+                                    <div *ngIf="city.errors?.['maxlength']">City cannot be more than 30 characters long.</div>
+                                  </div>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username" class="cols-sm-2 control-label">Username</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon addon-size"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control" name="username" id="username" [(ngModel)]="user.username" (input)="checkUsernameAvailability()" placeholder="Enter your Username" autocomplete="off" minlength="6" maxlength="15" required #username="ngModel"/>
+                            </div>
+                            <div class="error-container">
+                                <div *ngIf="username.invalid && (username.dirty || username.touched)" class="error">
+                                    <div *ngIf="username.errors?.['required']">Username is required.</div>
+                                    <div *ngIf="username.errors?.['minlength']">Username must be at least 6 characters long.</div>
+                                    <div *ngIf="username.errors?.['maxlength']">Username cannot be more than 15 characters long.</div>
+                                  </div>
+                                  <div class="error" *ngIf="usernameCheckMessage">{{ usernameCheckMessage }}</div>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="cols-sm-2 control-label">Password</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon addon-size"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                <input type="password" class="form-control" name="password" id="password" [(ngModel)]="user.password" placeholder="Enter your Password" autocomplete="off" minlength="6" maxlength="15" required #password="ngModel"/>
+                            </div>
+                            <div class="error-container">
+                                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error">
+                                    <div *ngIf="password.errors?.['required']">Password is required.</div>
+                                    <div *ngIf="password.errors?.['minlength']">Password must be at least 6 characters long.</div>
+                                    <div *ngIf="password.errors?.['maxlength']">Password cannot be more than 15 characters long.</div>
+                                  </div>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon addon-size"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" [(ngModel)]="user.confirmPassword" placeholder="Confirm your Password" autocomplete="off" required #confirmPassword="ngModel"/>
+                            </div>
+                            <div class="error-container">
+                                <div *ngIf="password.value !== confirmPassword.value && confirmPassword.dirty" class="error">
+                                    Passwords do not match.
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+<!--
+                    <div class="avatar-container">
+                        <label for="avatar-input">
+                            <div class="avatar" id="avatar">
+                                <img src="https://static.vecteezy.com/system/resources/previews/005/005/788/original/user-icon-in-trendy-flat-style-isolated-on-grey-background-user-symbol-for-your-web-site-design-logo-app-ui-illustration-eps10-free-vector.jpg" alt="Default Avatar">
+                            </div>
+                        </label>
+                        <input type="file" name="avatar-input" id="avatar-input" accept="image/*" style="display: none;" (change)="onFileSelected($event)">
+                    </div>
+-->
+                    <div class="flex flex-col avatar-container">
+                        <div class="avatar" id="avatar">
+                            <div class="preview" *ngIf="avatar != ''">
+                            <img class="preview-image" [src]="avatar">
+                            <div>
+                                <button class="delete-button" (click)="removePreview()">Delete</button>
+                            </div>
+                            </div>
+                        </div>
+                    <input class="image-input" type="file" name="image-input" id="image-input" style="display: none;" accept="image/png,image/jpg,image/jpeg" (change)="onFileSelected($event)" #avatarInput>
+                    <button type="button" class="custom-button" (click)="avatarInput.click()">Choose Image</button>
+                </div>
+
+                    <div class="form-group ">
+                        <button type="submit" [disabled]="registerForm.invalid || password.value !== confirmPassword.value || !isUsernameAvailable" class="btn btn-primary btn-lg btn-block login-button">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

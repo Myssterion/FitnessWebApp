@@ -1,0 +1,125 @@
+<div class="headerbar bg-primary w-full">
+  <div class="navbar-light bg-primary collapse navbar-collapse navbar" id="navbarNav">
+
+    <ul class="nav navbar-bar navbar-left d-none d-lg-flex">
+      <li>
+        <a class="nav-link" routerLink="/home">Home</a>
+      </li>
+      <li>
+        <a class="nav-link" routerLink="/programs">Programs</a>
+      </li>
+      <li *ngIf="authService.isLoggedIn()">
+        <a class="nav-link" routerLink="/categories">Categories</a>
+      </li>
+    </ul>
+
+
+    <ul class="nav navbar-bar navbar-left d-lg-none">
+      <li class="nav-item dropdown">
+        <a class="dropdown-toggle nav-link" href="#" id="leftDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+          Menu
+        </a>
+        <div class="dropdown-menu dropdown-color" aria-labelledby="leftDropdown">
+          <a class="nav-link" routerLink="/home">Home</a>
+          <a class="nav-link" routerLink="/programs">Programs</a>
+          <a class="nav-link" *ngIf="authService.isLoggedIn()" routerLink="/categories">Categories</a>
+          <a *ngIf="authService.isLoggedIn()" class="nav-link" [routerLink]="['/myprograms']">My programs</a>
+          <a *ngIf="authService.isLoggedIn()" class="nav-link" [routerLink]="['/diary']">Diary</a>
+          <a *ngIf="authService.isLoggedIn()" class="nav-link" [routerLink]="['/inbox']">
+            Inbox
+          </a>
+        </div>
+      </li>
+    </ul>
+
+
+    <ul class="nav navbar-bar navbar-center">
+      <li class="search-width">
+        <div class="search">
+
+          <div class="search-wrapper">
+            <div class="input-group flex flex-row">
+              <div class="icon">
+                <i class="glyphicon glyphicon-search"></i>
+              </div>
+
+              <input type="text" class="form-control search-input" placeholder="Search" name="search" id="search"
+                autocomplete="off" (input)="onSearch($event)" [(ngModel)]="searchText">
+            </div>
+            <div class="searchbar-dropdown" [style.display]="searchText && searchText.length >= 3 ? 'block' : 'none'">
+              <ul class="searchbar-dropdown-list" *ngIf="categories.length > 0">
+                <!-- Display categories -->
+               
+                <h5>Categories</h5>
+              
+                <li *ngFor="let category of categories">
+                  <a class="dropdown-item no-underline" [routerLink]="['/programs']"  [queryParams]="{ categoryId: category.id }">{{ category.categoryName }}</a>
+                </li>
+              </ul>
+              <ul class="searchbar-dropdown-list" *ngIf="programs.length > 0">
+                <!-- Display programs -->
+                <h5>Programs</h5>
+                <li *ngFor="let program of programs">
+                  <a class="dropdown-item no-underline" [routerLink]="['/program', { id: program.id }]">{{ program.name }}</a>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+    
+    <ul class="nav navbar-bar navbar-right d-none d-lg-flex">
+      <li *ngIf="!authService.isLoggedIn()" class="nav-item" >
+        <a class="nav-link" [routerLink]="['/register']">Register</a>
+      </li>
+      <li *ngIf="!authService.isLoggedIn()" class="nav-item">
+        <a class="nav-link" [routerLink]="['/login']">Login</a>
+      </li>
+      <li *ngIf="authService.isLoggedIn()" class="nav-item">
+        <a class="nav-link" [routerLink]="['/myprograms']">My programs</a>
+      </li>
+      <li *ngIf="authService.isLoggedIn()" class="nav-item">
+        <a class="nav-link" [routerLink]="['/diary']">Diary</a>
+      </li>
+      <li *ngIf="authService.isLoggedIn()" class="nav-item">
+        <a class="nav-link" [routerLink]="['/inbox']">
+        <span><i class="fa fa-envelope fa-lg"></i></span>
+      </a>
+      </li>
+      <li *ngIf="authService.isLoggedIn()" class="nav-item profile">
+        <div class="btn-group">
+          <button
+          class="btn avatar-button dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="avatar" id="avatar">
+            <div class="avatar-image">
+            <img class="image" [src]="avatar || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'">
+            </div>
+        </div>
+          </button>
+          <div class="dropdown-menu avatar-menu">
+            <a class="dropdown-item no-underline" [routerLink]="['/user']">Settings</a>
+            <a class="dropdown-item no-underline" [routerLink]="['/customersupport']">Customer support</a>
+            <hr>
+            <a class="dropdown-item no-underline" (click)="authService.logout()">Log out</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <ul class="nav navbar-bar navbar-right d-lg-none">
+      <li class="nav-item dropdown">
+        <a class="dropdown-toggle nav-link" href="#" id="rightDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+          Account
+        </a>
+        <div class="dropdown-menu dropdown-color" aria-labelledby="rightDropdown">
+          <a *ngIf="!authService.isLoggedIn()" class="nav-link" [routerLink]="['/register']">Register</a>
+          <a *ngIf="!authService.isLoggedIn()" class="nav-link" [routerLink]="['/login']">Login</a>
+          <a *ngIf="authService.isLoggedIn()" class="nav-link" [routerLink]="['/user']">Settings</a>
+          <a *ngIf="authService.isLoggedIn()" class="nav-link" (click)="authService.logout()">Log out</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+{
+    "/api": {
+      "target": "https://api.api-ninjas.com",
+      "secure": false,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api": ""
+      }
+    },
+    "/feed": {
+      "target": "https://feeds.feedburner.com",
+      "secure": false,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/feed": ""
+      }
+    }
+  }

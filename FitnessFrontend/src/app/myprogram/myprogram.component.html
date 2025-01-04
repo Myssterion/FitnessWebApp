@@ -1,0 +1,158 @@
+<div class="body w-full h-full">
+    <div class="row">
+        <div class="main-center">
+            <form class="form-horizontal" #programForm="ngForm" (ngSubmit)="onSubmit()" >
+                
+                <div class="form-group">
+                    <label for="name" class="cols-sm-2 control-label">Program Name</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="name" id="name" [(ngModel)]="program.name" placeholder="Enter your Name" autocomplete="off" minlength="2" maxlength="30" required #name="ngModel"/>
+                        </div>
+                        <div class="error-container">
+                        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error">
+                            <div *ngIf="name.errors?.['required']">Name is required.</div>
+                            <div *ngIf="name.errors?.['minlength']">Name must be at least 2 characters long.</div>
+                            <div *ngIf="name.errors?.['maxlength']">Name cannot be more than 30 characters long.</div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name" class="cols-sm-2 control-label">Duration</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <input type="number" class="form-control" name="duration" id="duration" [(ngModel)]="program.duration"  placeholder="Enter program duration" autocomplete="off" minlength="2" maxlength="4" required #duration="ngModel"/>
+                        </div>
+                        <div class="error-container">
+                            <div *ngIf="duration.invalid && (duration.dirty || duration.touched)" class="error">
+                                <div *ngIf="duration.errors?.['required']">Duration is required.</div>
+                                <div *ngIf="duration.errors?.['minlength']">Duration must be at least 2 characters long.</div>
+                                <div *ngIf="duration.errors?.['maxlength']">Duration cannot be more than 30 characters long.</div>
+                              </div>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="location" class="cols-sm-2 control-label">Location</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="location" id="location" [(ngModel)]="program.location" placeholder="Enter your location" autocomplete="off" minlength="2" maxlength="30" required #location="ngModel"/>
+                        </div>
+                        <div class="error-container">
+                            <div *ngIf="location.invalid && (location.dirty || location.touched)" class="error">
+                                <div *ngIf="location.errors?.['required']">Location is required.</div>
+                                <div *ngIf="location.errors?.['minlength']">Location must be at least 2 characters long.</div>
+                                <div *ngIf="location.errors?.['maxlength']">Location cannot be more than 30 characters long.</div>
+                              </div>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="price" class="cols-sm-2 control-label">Price</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="price" id="price" [(ngModel)]="program.price" placeholder="Enter your price" autocomplete="off" required #price="ngModel"/>
+                        </div>
+                        <div class="error-container">
+                            <div *ngIf="price.invalid && (price.dirty || price.touched)" class="error">
+                                <div *ngIf="price.errors?.['required']">Price is required.</div>
+                                <div *ngIf="price.errors?.['minlength']">Price must be at least 2 characters long.</div>
+                                <div *ngIf="price.errors?.['maxlength']">Price cannot be more than 30 characters long.</div>
+                              </div>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="difficulty" class="cols-sm-2 control-label">Difficulty</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <select class="form-control" name="difficulty" id="difficulty" [(ngModel)]="program.difficulty" [compareWith]="compareById" required #difficulty="ngModel">
+                                <option value="null" selected disabled>Select Difficulty</option>
+                                <option *ngFor="let difficulty of difficulties" [ngValue]="difficulty">{{difficulty.difficulty}}</option>
+                            </select>
+                        </div>
+                        <div class="error-container">
+                            <div *ngIf="difficulty.invalid && (difficulty.dirty || difficulty.touched)" class="error">
+                                <div *ngIf="difficulty.errors?.['required']">Difficulty is required.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="category" class="cols-sm-2 control-label">Category</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <select class="form-control" name="category" id="category" [(ngModel)]="program.category" [compareWith]="compareById" (click)="onCategoryChange()" required #category="ngModel">
+                                <option [value]="null" selected disabled>Select Category</option>
+                                <option *ngFor="let category of categories" [ngValue]="category">{{category.categoryName}}</option>
+                            </select>
+                        </div>
+                        <div class="error-container">
+                            <div *ngIf="category.invalid && (category.dirty || category.touched)" class="error">
+                                <div *ngIf="category.errors?.['required']">Category is required.</div>          
+                              </div>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="attribute" class="cols-sm-2 control-label">Attribute</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <select class="form-control" name="attribute" id="attribute" [(ngModel)]="program.attribute" [compareWith]="compareById" [disabled]="!program.category" required #attribute="ngModel">
+                                <option [value]="null" selected disabled>Select Attribute</option>
+                                <option *ngFor="let attribute of attributes" [ngValue]="attribute">{{attribute.attributeName}}</option>
+                            </select>
+                        </div>
+                        <div class="error-container">
+                            <div *ngIf="attribute.invalid && (attribute.dirty || attribute.touched)" class="error">
+                                <div *ngIf="attribute.errors?.['required']">Attribute is required.</div>          
+                              </div>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="image-container">
+                        <div class="image" id="image">
+                            <div class="preview" *ngFor='let preview of previews'>
+                            <img class="preview-image" [src]="preview">
+                            <div>
+                                <button class="delete-button" (click)="removePreview(preview)">Delete</button>
+                            </div>
+                            </div>
+                        </div>
+                    <input class="image-input" type="file" name="image-input" id="image-input" style="display: none;" accept="image/png,image/jpg,image/jpeg" multiple (change)="onFileSelected($event)" #imageInput>
+                    <button type="button" class="custom-button" (click)="imageInput.click()">Choose Image</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="video" class="cols-sm-2 control-label">Video</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="video" id="video" [(ngModel)]="program.video" placeholder="Enter link to youtube video" autocomplete="off" minlength="2" maxlength="200" #video="ngModel"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" class="cols-sm-2 control-label">Description</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <textarea  class="form-control textarea" name="description" id="name" [(ngModel)]="program.description" placeholder="Enter your description" autocomplete="off" maxlength="255" required #description="ngModel"></textarea>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="form-group ">
+                    <button type="submit" [disabled]="programForm.invalid || previews.length === 0" class="btn btn-primary btn-lg btn-block login-button">{{isAddingMode ? 'Add' : 'Save'}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

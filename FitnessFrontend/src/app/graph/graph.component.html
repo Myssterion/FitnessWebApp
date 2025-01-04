@@ -1,0 +1,54 @@
+<app-headerbar></app-headerbar>
+<div class="body">
+  <div class="row first-row">
+    <div class="col">
+    <ul class="nav navbar-bar navbar-left">
+        <li class="link">
+            <a class="link" routerLink="/diary">Diary</a>
+        </li>
+        <li class="link link-active" >
+            <a class="link" routerLink="/diary/graphic">Graph</a>
+        </li>
+    </ul>
+  </div>
+  </div>
+  <div class="row text-center">
+    <div class="col-lg-4">
+      <div class="btn-group" [ngStyle]="{ visibility: isActive ? 'visible' : 'hidden' }">
+        <div class="btn btn-custom" (click)="changeDate('before')" >
+          <span><i class="fa fa-solid fa-angle-left fa-3x fa"></i></span>
+        </div>
+        <div class="date">
+          {{selectedOptionDateInfo}}
+        </div>
+        <div class="btn btn-custom" (click)="changeDate('after')">
+          <span><i class="fa fa-solid fa-angle-right fa-3x fa"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 center">
+      <div class="input-group">
+        <select class="form-select" name="exercise" id="exercise" (change)="onExerciseChange($event)" [(ngModel)]="exercise" required #exercise="ngModel">
+          <option *ngFor="let exercise of exercises" [ngValue]="exercise">{{exercise.exerciseName}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="btn-group" role="group" aria-label="Button group with active states">
+        <button type="button" class="btn" [ngClass]="{'btn-primary': selectedOption === 'all', 'btn-outline-primary': selectedOption !== 'all'}" (click)="setActive('all')">
+          All
+        </button>
+        <button type="button" class="btn" [ngClass]="{'btn-primary': selectedOption === 'year', 'btn-outline-primary': selectedOption !== 'year'}" (click)="setActive('year')">
+          Year
+        </button>
+        <button type="button" class="btn" [ngClass]="{'btn-primary': selectedOption === 'month', 'btn-outline-primary': selectedOption !== 'month'}" (click)="setActive('month')">
+          Month
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <canvas class="chart" #myChart></canvas>
+  </div>
+</div>

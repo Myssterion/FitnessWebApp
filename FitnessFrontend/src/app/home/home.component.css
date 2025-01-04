@@ -1,0 +1,146 @@
+.body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    font-family: Open-sans, sans-serif;
+    height: calc(100% - 55px);
+    overflow-y: auto !important;
+  }
+
+.feed-item {
+    background-color: #fff;
+    min-height: 250px;
+    min-width: 100%;
+    padding: 10px 30px;
+    overflow: hidden;
+    position: relative;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.carousel {
+  display: flex;
+  flex-direction: column;
+  min-width: 80%;
+  max-width: 80%;
+  height: 250px;
+  background-color: #007bff;
+}
+
+.carousel-inner .item {
+  font-size: 20px; /* Increase display size */
+}
+
+.left.carousel-control,
+.right.carousel-control {
+  position: absolute;
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%);
+  background: none!important;
+  min-height: 30px;
+}
+
+.left.carousel-control {
+  left: 0; /* Align left */
+}
+
+.right.carousel-control {
+  right: 0; /* Align right */
+}
+
+h2 {
+  padding-top: 10px;
+  margin-bottom: 10px; /* Add space below heading */
+}
+
+.carousel-inner .item p {
+  margin-bottom: 20px; /* Add space below paragraph */
+}
+
+.carousel-inner {
+  min-height: 100%;
+  max-height: 100%;
+}
+
+.carousel-inner .item.active {
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-inner .item a {
+  display: inline-block;
+  background-color: none; /* Bootstrap primary color */
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-inner .item a:hover {
+  z-index: -1;
+  background-color: #0056b3; /* Darker shade of primary color on hover */
+}
+
+.glyphicon {
+  color: deepskyblue;
+}
+
+.link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  text-decoration: none;
+}
+
+.description {
+  font-size: 14px;
+  text-align: center;
+  width: 50%;
+  height: 50%;
+  margin: 20px auto;
+}
+
+.disable-hover {
+  text-decoration: none;
+  pointer-events: none;
+}
+
+.center {
+  margin: auto;
+}
+
+.exercise-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.exercise {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 70%;
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  padding: 5px;
+}
+
+@media (max-width: 600px) {
+  .carousel{
+    min-height: 350px;
+  }
+  
+}

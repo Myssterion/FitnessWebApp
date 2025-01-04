@@ -1,0 +1,56 @@
+<app-headerbar></app-headerbar>
+<div class="body">
+        <div class="flex menu-container">
+    <ul class="nav navbar-bar navbar-left">
+        <li class="link" [class.active]="isActive('/diary')">
+            <a class="link" routerLink="/diary">Diary</a>
+        </li>
+        <li class="link" [class.active]="isActive('/diary/graphic')">
+            <a class="link" routerLink="/diary/graphic">Graph</a>
+        </li>
+    </ul>
+    <ul class="nav navbar-bar navbar-right">
+        <li class="link">
+            <a class="link add" (click)="downloadDiaryPdf()">
+                <span><i class="fa fa-solid fa-download fa-2x"></i></span>
+            </a>
+          </li>
+        <li class="link">
+          <a class="link add" [routerLink]="['/diary/add']">
+            <span><i class="fa fa-solid fa-plus fa-2x fa"></i></span>
+        </a>
+        </li>
+    </ul>
+    </div>
+    <div class="diary-container">
+        <table class="table custab">
+            <thead class="info">
+                     <tr>
+                        <th class="custom-row">Date</th>
+                        <th class="custom-row">Exercise</th>
+                        <th class="custom-row">Duration</th>
+                        <th class="custom-row">Weight</th>
+                        <th class="custom-row">Intensity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr class="tr" *ngFor="let entry of activitylog | slice: (currentPage-1) * pageSize : (currentPage-1) * pageSize + pageSize">
+                            <td class="td">{{entry.date}}</td>
+                            <td class="td">{{entry.exercise?.exerciseName}}</td>
+                            <td class="td">{{entry.duration}}</td>
+                            <td class="td">{{entry.weight}}</td>
+                            <td class="td">{{entry.intensity?.intensityName}}</td>
+                        </tr>
+                </tbody>
+        </table>
+    </div>
+    <div class="pagination">
+        <ngb-pagination 
+        [collectionSize]="activitylog.length" 
+        [pageSize]="pageSize"
+        [(page)]="currentPage"  
+        [boundaryLinks]="true" 
+        > 
+      </ngb-pagination>
+        </div>
+</div>

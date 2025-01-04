@@ -1,0 +1,32 @@
+<app-headerbar></app-headerbar>
+<div>   
+     <div class="col conversation w-full">
+          <div class="prev-conversation">
+            <div *ngFor="let message of conversation" class="message-box">
+              <div class="message" [ngClass]="{'message-sent': message.senderId === this.getUserId() , 'message-received': message.senderId !== this.getUserId()}">
+                <div class="message-content">
+                  <div class="flex flex-row justify-between">
+                  {{message.content}}
+                  </div>
+                  <div class="flex flex-row justify-between" style="font-size: 10px;">
+                  {{ message.sentAt | date: 'dd/MM/yyyy HH:mm'}}
+                  </div>
+                </div>
+            </div>
+          </div>
+          </div>
+          <div class="message-area">
+          <form class="form-horizontal" #messageForm="ngForm" (ngSubmit)="sendMessage()" >
+            <div class="form-group">
+            <div class="input-group message-size">
+                <textarea  class="form-control textarea  message-size" name="message" id="message" [(ngModel)]="message" placeholder="Enter your message" autocomplete="off" maxlength="600" required></textarea>
+            </div>
+          </div>
+
+          <div class="form-group ">
+            <button type="submit" [disabled]="messageForm.invalid" class="btn btn-primary btn-lg pull-right button-body">{{"Posalji poruku"}}</button>
+        </div>
+        </form>
+      </div>
+        </div>
+</div>

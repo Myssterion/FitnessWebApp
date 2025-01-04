@@ -1,0 +1,172 @@
+<app-headerbar></app-headerbar>
+<div class="w-full flex flex-col frame">
+    <div class="flex flex-col container">
+        <!-- product -->
+        <div class="product-content product-wrap clearfix product-deatil">
+                <div class="product-image">
+                    <div id="myCarousel-2" class="carousel slide">
+                        <ol class="carousel-indicators">
+                            <li *ngFor="let imageUrl of program.pictures; let i = index"
+                                [attr.data-target]="'#myCarousel-2'" [attr.data-slide-to]="i"
+                                [ngClass]="{ active: i === 0 }"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div *ngFor="let imageUrl of program.pictures; let i = index" class="item"
+                                [ngClass]="{ active: i === 0 }">
+                                <img class="img-responsive image-size" [src]="'http://localhost:8080' + imageUrl" 
+                                    alt="" />
+                            </div>
+                        </div>
+                        <a class="left carousel-control" href="#myCarousel-2" data-slide="prev"> <span
+                                class="glyphicon glyphicon-chevron-left"></span> </a>
+                        <a class="right carousel-control" href="#myCarousel-2" data-slide="next"> <span
+                                class="glyphicon glyphicon-chevron-right"></span> </a>
+                    </div>
+                </div>
+            <hr />
+            <div>
+                <h2 class="name">
+                    {{program.name}}
+                </h2>
+                <hr />
+                <h2>
+                    Instructor: {{program.instructor?.name + " " + program.instructor?.surname}}
+                    <button  *ngIf="this.program.instructor?.id !== this.authService.getUserId() && this.authService.isLoggedIn()" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sendMessageModalCenter">
+                        Send message
+                      </button>
+                </h2>
+                <hr />
+                <h3 class="price-container">
+                    {{program.price}} $
+                </h3>
+                <hr />
+                <div>
+                    <div>
+                        <h4>Location: {{program.location}}</h4>
+                    </div>
+                    <div>
+                        <h4>Duration: {{program.duration}}</h4>
+                    </div>
+                    <div class="category-container">
+                        <h4>Category: <a class="nav-link">{{program.category?.categoryName}}</a></h4>
+                    </div>
+                    <div>
+                        <h4>Attribute: {{program.attribute?.attributeName}}</h4>
+                    </div>
+                    <div>
+                        <h4>Difficulty: {{program.difficulty?.difficulty}}</h4>
+                    </div>
+                    <div>
+                        <h4>Description: {{program.description}}</h4>
+                    </div>
+                </div>
+                <hr />
+                <div *ngIf="authService.isLoggedIn() && this.program.instructor?.id !== this.authService.getUserId() && !this.isUserSubscribed" class="row pull-right">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <button class="btn btn-lg btn-success btn-enlarged" data-bs-toggle="modal" data-bs-target="#joinModal">Join
+                            {{program.price}}$</button>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div *ngIf="this.program.video !== null && (this.isUserSubscribed || this.program.instructor?.id === this.authService.getUserId())">
+                    <hr />
+                    <div class="iframe-container">
+                        <iframe class="video" width="790" height="315" [src]="videoUrl" 
+                            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="product-content">
+            <h2>Comments</h2>
+            <hr />
+            <div *ngFor="let comment of comments.slice(0, showAll ? comments.length : 3)">
+                <div class="comment">
+                    <div class="comment-header">
+                        <p class="username">{{comment.username}}</p>
+                        <p class="pull-right">{{comment.posted | date: 'dd/MM/yyyy HH:mm'}}</p>
+                    </div>
+                    <div class="comment-body">
+                        {{comment.content}}
+                    </div>
+                </div>
+                <hr />
+            </div>
+            <button class="btn btn-lg pull-right button-body btn-margin" (click)="toggleShowAll()">{{showAll ? "Show less comments" : "Show all comments"}}</button>
+            
+            <div *ngIf="authService.isLoggedIn() && this.program.instructor?.id !== this.authService.getUserId()">
+               
+                <form class="form-horizontal" #commentForm="ngForm" (ngSubmit)="postComment()" >
+                <div class="form-group">
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <textarea  class="form-control textarea" name="comment" id="comment" [(ngModel)]="comment" placeholder="Enter your comment" autocomplete="off" maxlength="300" required></textarea>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="form-group ">
+                    <button type="submit" [disabled]="commentForm.invalid" class="btn btn-lg pull-right button-body">{{"Post"}}</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="sendMessageModalCenter" tabindex="-1" role="dialog" aria-labelledby="sendMessageModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content custom-modal-height">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">{{'Message to user ' + program.instructor?.name}}</h5>
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group message-size">
+                    <textarea  class="form-control textarea  message-size" name="message" id="message" [(ngModel)]="message" placeholder="Enter your message" autocomplete="off" maxlength="600" required></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="sendMessage()">Send message</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="modal" id="joinModal" tabindex="-1" role="dialog" aria-labelledby="joinModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content custom-modal-height">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">{{program.name}}</h5>
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal join-container" #programForm="ngForm">
+                <div><h3>Price {{program.price}}</h3></div>
+                <div class="input-group center">
+                    <select class="form-control payment-method" name="paymentMethod" id="paymentMethod" [(ngModel)]="payment.method" required #paymentMethod="ngModel">
+                        <option value="null" selected disabled>Payment</option>
+                        <option [value]="'Kartica'" selected>Card</option>
+                        <option [value]="'Novac'">Money</option>
+                    </select>
+                </div>
+                <div *ngIf="payment.method === 'Kartica'">
+                    <input type="text" name="card" autocomplete="off">
+                </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" [disabled]="programForm.invalid" data-bs-dismiss="modal" (click)="joinProgram()">Subscribe</button>
+            </div>
+          </div>
+        </div>
+      </div>
+   
+</div>

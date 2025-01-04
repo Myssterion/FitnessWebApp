@@ -1,0 +1,37 @@
+<app-headerbar></app-headerbar>
+<div class="body">
+<div *ngIf="rssFeed">
+<div class="feed-item">
+  <div id="myCarousel-2" class="carousel slide">
+      <ol class="carousel-indicators center">
+          <li *ngFor="let item of rssFeed; let i = index"
+              [attr.data-target]="'#myCarousel-2'" [attr.data-slide-to]="i"
+              [ngClass]="{ active: i === 0 }"></li>
+      </ol>
+      <div class="carousel-inner">
+          <div *ngFor="let item of rssFeed; let i = index" class="item"
+              [ngClass]="{ active: i === 0 }">
+              <h2 class="disable-hover">{{ item.title }}</h2>
+              <div class="description disable-hover">
+              {{ item.content }}
+            </div>
+              <a [href]="item.link" class="link"></a>
+          </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel-2" data-slide="prev"> <span
+              class="glyphicon glyphicon-chevron-left"></span> </a>
+      <a class="right carousel-control" href="#myCarousel-2" data-slide="next"> <span
+              class="glyphicon glyphicon-chevron-right"></span> </a>
+  </div>
+</div>
+</div>
+
+<div class="exercise-frame" *ngIf="exerciseSuggestions && this.authService.isLoggedIn()">
+  <div class="exercise" *ngFor="let exercise of exerciseSuggestions">
+    <h3>{{ exercise.name }}</h3>
+    <p>Type: {{ exercise.type }}</p>
+    <p>Difficulty: {{ exercise.difficulty }}</p>
+    <p>{{ exercise.instructions }}</p>
+  </div>
+</div>
+</div>

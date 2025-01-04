@@ -1,0 +1,78 @@
+<div class="body w-full h-full">
+    <div class="row">
+        <div class="main-center">
+            <form class="form-horizontal" #diaryEntryForm="ngForm" (ngSubmit)="onSubmit()" >
+
+                <div class="form-group">
+                    <label for="name" class="cols-sm-2 control-label">Duration</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <input type="number" class="form-control" name="duration" id="duration" [(ngModel)]="diaryEntry.duration"  placeholder="Enter program duration" autocomplete="off" min="0" max="3600" required #duration="ngModel"/>
+                        </div>
+                        <div class="error-container">
+                            <div *ngIf="duration.invalid && (duration.dirty || duration.touched)" class="error">
+                                <div *ngIf="duration.errors?.['required']">Duration is required.</div>
+                                <div *ngIf="duration.errors?.['min']">Duration must be greater than 0.</div>
+                                <div *ngIf="duration.errors?.['max']">Duration cannot be more than 3600 minutes long.</div>
+                              </div>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="weight" class="cols-sm-2 control-label">Weight</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <input type="number" class="form-control" name="weight" id="weight" [(ngModel)]="diaryEntry.weight" placeholder="Enter weight" autocomplete="off" min="0" max="400" required #weight="ngModel"/>
+                        </div>
+                        <div class="error-container">
+                            <div *ngIf="weight.invalid && (weight.dirty || weight.touched)" class="error">
+                                <div *ngIf="weight.errors?.['required']">Weight is required.</div>
+                                <div *ngIf="weight.errors?.['min']">Weight must be greater than 0.</div>
+                                <div *ngIf="weight.errors?.['max']">Weight cannot be more than 400kg.</div>
+                              </div>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="difficulty" class="cols-sm-2 control-label">Exercise</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <select class="form-control" name="exercise" id="exercise" [(ngModel)]="diaryEntry.exercise" required #exercise="ngModel">
+                                <option value="null" selected disabled>Select Exercise</option>
+                                <option *ngFor="let exercise of exercises" [ngValue]="exercise">{{exercise.exerciseName}}</option>
+                            </select>
+                        </div>
+                        <div class="error-container">
+                            <div *ngIf="exercise.invalid && (exercise.dirty || exercise.touched)" class="error">
+                                <div *ngIf="exercise.errors?.['required']">Exercise is required.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="intensity" class="cols-sm-2 control-label">Intensity</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <select class="form-control" name="intensity" id="intensity" [(ngModel)]="diaryEntry.intensity" required #intensity="ngModel">
+                                <option [value]="null" selected disabled>Select intensity</option>
+                                <option *ngFor="let intensity of intensities" [ngValue]="intensity">{{intensity.intensityName}}</option>
+                            </select>
+                        </div>
+                        <div class="error-container">
+                            <div *ngIf="intensity.invalid && (intensity.dirty || intensity.touched)" class="error">
+                                <div *ngIf="intensity.errors?.['required']">Intensity is required.</div>          
+                              </div>
+                            </div>
+                    </div>
+                </div>
+               
+                <div class="form-group ">
+                    <button type="submit" [disabled]="diaryEntryForm.invalid" class="btn btn-primary btn-lg btn-block login-button">{{'Add'}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

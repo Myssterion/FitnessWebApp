@@ -1,0 +1,81 @@
+<app-headerbar ></app-headerbar>
+<div class="body">
+      <div class="filter-container">
+        <div class="btn-group">
+          <button [ngClass]="{'btn-highlight': categoryActive}" 
+          class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           Category
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" *ngFor="let category of categories" (click)="applyCategoryFilter(category.id)">{{category.categoryName}}</a>
+          </div>
+        </div>
+        <div class="btn-group">
+          <button [ngClass]="{'btn-highlight': difficultyActive}" 
+          class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Difficulty
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" *ngFor="let difficulty of difficulties" (click)="applyDifficultyFilter(difficulty.id)">{{difficulty.difficulty}}</a>
+          </div>
+        </div>
+        <div class="btn-group">
+          <button [ngClass]="{'btn-highlight': filters.priceFrom || filters.priceTo}"
+           class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Price
+          </button>
+          <div class="dropdown-menu">
+            <div class="filter-between">
+                <input type="number" placeholder="from" [(ngModel)]="filters.priceFrom" (change)="applyFilters()">
+                <input type="number" placeholder="to" [(ngModel)]="filters.priceTo" (change)="applyFilters()">
+            </div>
+          </div>
+        </div>
+        <div class="btn-group">
+          <button [ngClass]="{'btn-highlight': filters.durationFrom || filters.durationTo}"  
+           class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Duration
+          </button>
+          <div class="dropdown-menu">
+            <div class="filter-between">
+                <input type="number" placeholder="from" [(ngModel)]="filters.durationFrom" (change)="applyFilters()">
+                <input type="number" placeholder="to" [(ngModel)]="filters.durationTo" (change)="applyFilters()">
+            </div>
+          </div>
+        </div> 
+        <div *ngIf="this.categoryActive" class="btn-group">
+          <button [ngClass]="{'btn-highlight': attributeActive}" 
+          class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           Attribute
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" *ngFor="let attribute of attributes" (click)="applyAttributeFilter(attribute.id)">{{attribute.attributeName}}</a>
+          </div>
+        </div>
+      </div>
+      <div class="padded">
+        <div class="col-12 col-md-6 col-lg-4" *ngFor="let program of programs | slice: (currentPage-1) * pageSize : (currentPage-1) * pageSize + pageSize">
+          <div class="card">
+            <img *ngIf="program && program.pictures && program.pictures.length > 0" 
+            [src]="'http://localhost:8080' + program.pictures[0]" 
+            alt="Program Image"
+            class="card-img" />
+            <input type="hidden" [(ngModel)]="program.id" name="programId">
+              <div class="card-category">{{program.name}}</div>
+              <div class="card-description">
+                <h4>{{program.price}}</h4>
+              </div>
+              <a class="card-link" [routerLink]="['/program', { id: program.id }]"></a>
+            </div>
+          </div>
+        </div>
+        <div class="pagination">
+          <ngb-pagination 
+          [collectionSize]="programs.length" 
+          [pageSize]="pageSize"
+          [(page)]="currentPage"  
+          [boundaryLinks]="true" 
+          > 
+        </ngb-pagination>
+          </div>
+        </div>

@@ -1,0 +1,47 @@
+<app-headerbar></app-headerbar>
+<div class="body">
+<div class="flex menu-container">
+<ul class="nav navbar-bar navbar-left">
+    <li class="link" [class.active]="isActive('/myprograms/active')">
+        <a class="link" routerLink="/myprograms/active">Active</a>
+    </li>
+    <li class="link" [class.active]="isActive('/myprograms/inactive')">
+        <a class="link" routerLink="/myprograms/inactive">Inactive</a>
+    </li>
+    <li class="link" [class.active]="isActive('/myprograms/subscribed')">
+        <a class="link" routerLink="/myprograms/subscribed">Subscribed</a>
+    </li>
+</ul>
+<ul *ngIf="status === 'active'" class="nav navbar-bar navbar-right">
+    <li class="link">
+      <a class="link add" [routerLink]="['/myprogram/add']">
+        <span><i class="fa fa-solid fa-plus fa-2x fa"></i></span></a>
+    </li>
+</ul>
+</div>
+<div class="program-container">
+    <table class="table custab">
+        <thead class="info">
+                 <tr>
+                    <th class="first-row">Title</th>
+                    <th class="second-row">Price</th>
+                    <th *ngIf="status !== 'subscribed'" class="align-right">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let program of programs">
+                    <td class="td">{{program.name}}</td>
+                    <td class="td">{{program.price}}</td>
+                    <td class="align-right action-container">
+                            <!-- if active-->
+                            <a *ngIf="status === 'active'" class='btn btn-info btn-xs action' [routerLink]="['/myprogram/edit']" [queryParams]="{id: program.id}"><span class="glyphicon glyphicon-edit"></span> Edit</a> 
+                            <div *ngIf="status === 'active'" class='btn btn-info btn-xs action' (click)="deactivateProgram(program.id)"><span class="glyphicon glyphicon-ban-circle"></span> End</div>
+                            <!-- if inactive-->
+                            <div *ngIf="status === 'active' || status === 'inactive'" class="btn btn-danger btn-xs action" (click)="deleteProgram(program.id)"><span class="glyphicon glyphicon-remove"></span> Del</div>
+                            
+                    </td>
+                </tr>
+            </tbody>
+    </table>
+</div>
+</div>
